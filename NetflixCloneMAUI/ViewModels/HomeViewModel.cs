@@ -45,7 +45,7 @@ namespace NetflixCloneMAUI.ViewModels
 
 
             //setting random trending movie from Trending List to the Trending Movie
-            var randomTrending = trendingList.OrderBy(t => Guid.NewGuid()).
+            TrendingMovie = trendingList.OrderBy(t => Guid.NewGuid()).
                                  FirstOrDefault(t =>
                                  !string.IsNullOrWhiteSpace(t.DisplayTitle)
                                  && !string.IsNullOrWhiteSpace(t.Thumbnail));
