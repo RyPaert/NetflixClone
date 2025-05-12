@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using NetflixCloneMAUI.Pages;
 using NetflixCloneMAUI.Services;
+using NetflixCloneMAUI.ViewModels;
 
 namespace NetflixCloneMAUI;
 
@@ -25,6 +26,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<TmdbService>();
 		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<HomeViewModel>();
 
 		return builder.Build();
 	}
