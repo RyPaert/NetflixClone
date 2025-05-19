@@ -98,7 +98,8 @@
 
                 <controls:MovieRow Heading="Top Rated" 
                                    Movies="{Binding TopRated}" 
-                                   IsLarge="False"/>
+                                   IsLarge="False"
+                                   MediaSelected="MovieRow_MediaSelected"/>
                 <controls:MovieRow Heading="Originals" 
                                    Movies="{Binding NetflixOriginals}" 
                                    IsLarge="True"/>

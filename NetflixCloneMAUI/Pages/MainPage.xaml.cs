@@ -18,4 +18,9 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
         await _homeViewModel.InitializeAsync();
     }
+
+    private void MovieRow_MediaSelected(object sender, Controls.MediaSelectEventArgs e)
+    {
+        _homeViewModel.SelectMediaCommand.Execute(e.Media);
+    }
 }
