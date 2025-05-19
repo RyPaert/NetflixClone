@@ -127,6 +127,33 @@
                             Style="{StaticResource iconBtnText}"/>
                 </Grid>
             </Grid>
+
+            <BoxView HeightRequest="2"
+                     BackgroundColor="#9d9d9d"
+                     Color="#9d9d9d"
+                     Margin="5,0"/>
+
+            <Grid ColumnDefinitions="Auto, *, Auto"
+                  Padding="15"
+                  ColumnSpacing="5">
+                <Grid Grid.Column="0">
+                    <Ellipse Stroke="White"
+                             HeightRequest="22"
+                             WidthRequest="22"
+                             StrokeThickness="2"/>
+                    <Label Text="i"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           FontAttributes="Bold"/>
+                </Grid>
+
+                <Label Grid.Column="1"
+                       Text="Details &amp; More"/>
+
+                <Label Grid.Column="2"
+                       Text=">"/>
+            </Grid>
+
         </VerticalStackLayout>
     </Border>
 </ContentView>
