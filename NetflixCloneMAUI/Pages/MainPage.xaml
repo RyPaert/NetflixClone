@@ -30,6 +30,10 @@
                         <Image.Source>
                             <UriImageSource Uri="{Binding TrendingMovie.Thumbnail}"/>
                         </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectMediaCommand}"
+                                                  CommandParameter="{Binding TrendingMovie}"/>
+                        </Image.GestureRecognizers>
                     </Image>
 
 
@@ -90,6 +94,10 @@
                             <Label Text="Info"
                                    HorizontalOptions="Center"
                                    Margin="0, 10, 0, 0"/>
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectMediaCommand}"
+                                             CommandParameter="{Binding TrendingMovie}"/>
+                            </VerticalStackLayout.GestureRecognizers>
                         </VerticalStackLayout>
 
                     </HorizontalStackLayout>
