@@ -1,4 +1,5 @@
-﻿using NetflixCloneMAUI.Services;
+﻿using System.Threading.Tasks;
+using NetflixCloneMAUI.Services;
 using NetflixCloneMAUI.ViewModels;
 
 namespace NetflixCloneMAUI.Pages;
@@ -27,5 +28,10 @@ public partial class MainPage : ContentPage
     private void MovieInfoBox_Closed(object sender, EventArgs e)
     {
         _homeViewModel.SelectMediaCommand.Execute(null);
+    }
+
+    private async void CategoriesMenu_Tapped(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CategoriesPage));
     }
 }
