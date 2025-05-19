@@ -3,9 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NetflixCloneMAUI.Controls.MovieInfoBox"
              xmlns:controls="clr-namespace:NetflixCloneMAUI.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Name="this"
              Padding="0"
              Margin="0">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Ellipse" x:Key="iconBg">
+                <Setter Property="HeightRequest" Value="25"/>
+                <Setter Property="WidthRequest" Value="25"/>
+                <Setter Property="Fill" Value="#3c3c3c"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Image" x:Key="iconImg">
+                <Setter Property="HeightRequest" Value="20"/>
+                <Setter Property="WidthRequest" Value="20"/>
+                <Setter Property="Aspect" Value="AspectFill"/>
+            </Style>
+            <Style TargetType="Label" x:Key="iconBtnText">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="TextColor" Value="#9d9d9d"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    
     <Border BindingContext="{x:Reference this}"
             StrokeShape="RoundRectangle 10, 10, 0, 0"
             StrokeThickness="0"
@@ -67,19 +91,42 @@
 
             <Grid ColumnDefinitions="*, *, *, *"
                   Margin="0, 20, 0, 5">
-                <Grid Grid.Column="0"
-                      RowDefinitions="Auto, Auto"
-                      
-                      <Ellipse HeightRequest="25"
-                               WidthRequest="25"
-                               Fill="#3c3c3c"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
-                    <Image Source="play.png"
-                           HeightRequest="20"
-                           WidthRequest="20"
-                           Aspect="AspectFill"/>
+                <Grid Grid.Column="0" 
+                      RowDefinitions="Auto, Auto">
+                    <Ellipse Style="{StaticResource iconBg}"/>
+                    <Image Source="play"
+                           Style="{StaticResource iconImg}">
+                        <!--<Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White" />
+                        </Image.Behaviors>-->
+                    </Image>
+                    <Label Grid.Row="1"
+                           Text="Play"
+                           Style="{StaticResource iconBtnText}"/>
                 </Grid>
+
+                <Grid Grid.Column="0" 
+                      RowDefinitions="Auto, Auto">
+                     <Ellipse Style="{StaticResource iconBg}"/>
+                    <Image Source="download.png"
+                            Style="{StaticResource iconImg}">
+                    </Image>
+                     <Label Grid.Row="1"
+                            Text="Download"
+                            Style="{StaticResource iconBtnText}"/>
+                </Grid>
+
+                <Grid Grid.Column="0" 
+                        RowDefinitions="Auto, Auto">
+                        <Ellipse Style="{StaticResource iconBg}"/>
+                    <Image Source="share.png"
+                                Style="{StaticResource iconImg}">
+                    </Image>
+                    <Label Grid.Row="1"
+                            Text="Share"
+                            Style="{StaticResource iconBtnText}"/>
+                </Grid>
+            </Grid>
         </VerticalStackLayout>
     </Border>
 </ContentView>
