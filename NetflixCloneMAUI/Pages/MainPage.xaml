@@ -134,7 +134,8 @@
         </Grid>
 
         <controls:MovieInfoBox Media="{Binding SelectedMedia}"
-                               VerticalOptions="End"/>
+                               VerticalOptions="End"
+                               IsVisible="{Binding ShowMovieInfoBox}"/>
     </Grid>
     
 </ContentPage>
