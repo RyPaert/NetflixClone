@@ -23,4 +23,9 @@ public partial class MainPage : ContentPage
     {
         _homeViewModel.SelectMediaCommand.Execute(e.Media);
     }
+
+    private void MovieInfoBox_Closed(object sender, EventArgs e)
+    {
+        _homeViewModel.SelectMediaCommand.Execute(null);
+    }
 }

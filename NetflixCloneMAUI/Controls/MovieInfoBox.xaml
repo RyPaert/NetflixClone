@@ -75,7 +75,9 @@
                             WidthRequest="25"
                             CornerRadius="10"
                             Padding="0"
-                            Margin="5"/>
+                            Margin="5"
+                            Command="{Binding ClosedCommand}"
+                            Clicked="Button_Clicked"/>
                 </Grid>
 
                 <Label Grid.Row="1"

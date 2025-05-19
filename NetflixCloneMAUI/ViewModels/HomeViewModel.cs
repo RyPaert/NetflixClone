@@ -61,6 +61,8 @@ namespace NetflixCloneMAUI.ViewModels
             SetMediaCollection(netflixOriginalsList, NetflixOriginals);
             SetMediaCollection(topRatedList, TopRated);
             SetMediaCollection(actionList, ActionMovies);
+
+            //SelectedMedia == TrendingMovie;
         }
 
         private void SetMediaCollection(IEnumerable<Media> medias, ObservableCollection<Media> collection)
@@ -72,6 +74,16 @@ namespace NetflixCloneMAUI.ViewModels
             }
         }
         [RelayCommand]
-        private void SelectMedia(Media? media = null) => SelectedMedia = media;
+        private void SelectMedia(Media? media = null)
+        {
+            if (media is not null)
+            {
+                if(media.Id == SelectedMedia?.Id)
+                {
+                    media = null;
+                }
+            }
+            SelectedMedia = media;
+        }
     }
 }
