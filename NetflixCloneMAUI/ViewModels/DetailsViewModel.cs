@@ -24,20 +24,13 @@ namespace NetflixCloneMAUI.ViewModels
         private string _mainTrailerUrl;
 
         [ObservableProperty]
-        private int _runtime;
-
-        [ObservableProperty]
         private bool _isBusy;
 
         public async Task InitializeAsync()
         {
             IsBusy = true;
 
-            var trailerTeasersTask =  _tmdbService.GetTrailersAsync(Media.Id, Media.MediaType);
-            var detailsTask =  _tmdbService.GetMediaDetailsAsync(Media.Id, Media.MediaType);
-
-            var trailerTeasers = await trailerTeasersTask;
-            var details = await detailsTask;
+            var trailerTeasers = await _tmdbService.GetTrailersAsync(Media.Id, Media.MediaType);
             try
             {
                 if (trailerTeasers?.Any() == true)
@@ -48,18 +41,11 @@ namespace NetflixCloneMAUI.ViewModels
                         trailer = trailerTeasers.First();
                     }
                     MainTrailerUrl = GenerateYoutueUrl(trailer.key);
-
-
                 }
                 else
                 {
                     await Shell.Current.DisplayAlert("Not Found", "No videos found", "Ok");
                 }
-                if (details is not null)
-                {
-                    Runtime = details.runtime;
-                }
-
             }
             finally
             {

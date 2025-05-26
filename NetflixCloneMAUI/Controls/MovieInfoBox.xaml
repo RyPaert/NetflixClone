@@ -100,9 +100,9 @@
                     <Ellipse Style="{StaticResource iconBg}"/>
                     <Image Source="play"
                            Style="{StaticResource iconImg}">
-                        <Image.Behaviors>
+                        <!--<Image.Behaviors>
                             <toolkit:IconTintColorBehavior TintColor="White" />
-                        </Image.Behaviors>
+                        </Image.Behaviors>-->
                     </Image>
                     <Label Grid.Row="1"
                            Text="Play"
