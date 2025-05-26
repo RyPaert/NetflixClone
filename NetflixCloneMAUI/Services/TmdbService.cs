@@ -39,7 +39,7 @@ namespace NetflixCloneMAUI.Services
         public async Task<IEnumerable<Video>> GetTrailersAsync(int id, string type = "movie")
         {
             var videosWrapper = await HttpClient.GetFromJsonAsync<VideosWrapper>(
-                $"{TmdbUrls.GetTrailers(id, type)}&api_key={ApiKey}\");");
+                $"{TmdbUrls.GetTrailers(id, type)}&api_key={ApiKey}");
             if ( videosWrapper?.results?.Length > 0)
             {
                 var trailerTeasers = videosWrapper.results.Where(VideosWrapper.FilterTrailerTeasers);
@@ -47,6 +47,10 @@ namespace NetflixCloneMAUI.Services
             }
             return null;
         }
+
+        public async Task<MovieDetail> GetMediaDetailsAsync(int id, string type = "movie") =>
+            await HttpClient.GetFromJsonAsync<MovieDetail>(
+                $"{TmdbUrls.GetMovieDetails(id, type)}&api_key={ApiKey}");
 
         private async Task<IEnumerable<Media>> GetMediasAsync(string url)
         {

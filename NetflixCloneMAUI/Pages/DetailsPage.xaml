@@ -3,10 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NetflixCloneMAUI.Pages.DetailsPage"
              xmlns:vm="clr-namespace:NetflixCloneMAUI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="vm:DetailsViewModel"
              BackgroundColor="Black"
              Title="DetailsPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="sub">
+                <Setter Property="TextColor" Value="Gray"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Button" x:Key="btn">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="CornerRadius" Value="15"/>
+            </Style>
+            <Style TargetType="Image" x:Key="imgbtn">
+                <Setter Property="Aspect" Value="AspectFit"/>
+                <Setter Property="HeightRequest" Value="25"/>
+                <Setter Property="WidthRequest" Value="25"/>
+            </Style>
+            <Style TargetType="Label" x:Key="btntext">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ScrollView BackgroundColor="Black">
         <Grid>
             <ActivityIndicator Color="White"
@@ -26,6 +51,72 @@
                 </VerticalStackLayout.Triggers>
                 <WebView Source="{Binding MainTrailerUrl}"
                          HeightRequest="250"/>
+
+                <VerticalStackLayout Padding="5"
+                                     Spacing="10"
+                                     Margin="0, 15, 0, 0">
+                    <Label Text="{Binding Media.DisplayTitle}" 
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+
+                    <HorizontalStackLayout Spacing="15">
+                        <Label Text="{Binding Media.ReleaseDate}" 
+                               Style="{x:StaticResource sub}"/>
+                        <Label Text="{Binding Runtime, StringFormat='{0} minutes'}" 
+                               Style="{x:StaticResource sub}"/>
+                    </HorizontalStackLayout>
+
+                    <Button Text="Play"
+                            BackgroundColor="White"
+                            TextColor="Black"
+                            Style="{x:StaticResource btn}"/>
+                    
+                    <Button Text="Download"
+                            BackgroundColor="White"
+                            Style="{x:StaticResource btn}"/>
+                    
+                    <Label Text="{Binding Media.Overview}"
+                           FontSize="13"/>
+
+                    <Grid ColumnDefinitions="*,*,*">
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             Grid.Column="1">
+                            <Image Source="plus.png"
+                                   Style="{x:StaticResource imgbtn}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label Text="My List"
+                                   Style="{x:StaticResource btntext}" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             Grid.Column="2">
+                            <Image Source="rate.png"
+                                   Style="{x:StaticResource imgbtn}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label Text="Rate"
+                                   Style="{x:StaticResource btntext}" />
+                        </VerticalStackLayout>
+
+
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             Grid.Column="2">
+                            <Image Source="share.png"
+                                   Style="{x:StaticResource imgbtn}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="White" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Label Text="Share"
+                                   Style="{x:StaticResource btntext}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>    
