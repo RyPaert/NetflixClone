@@ -29,4 +29,9 @@ public partial class MovieInfoBox : ContentView
 
     private void Button_Clicked(object sender, EventArgs e) =>
         Closed?.Invoke(this, EventArgs.Empty);
+
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+
+    }
 }

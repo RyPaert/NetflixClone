@@ -2,6 +2,7 @@
 using NetflixCloneMAUI.Pages;
 using NetflixCloneMAUI.Services;
 using NetflixCloneMAUI.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace NetflixCloneMAUI;
 
@@ -31,6 +32,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CategoriesPage>();
 		builder.Services.AddSingleton<CategoriesViewModel>();
 
-		return builder.Build();
+		builder.Services.AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage));
+        return builder.Build();
 	}
 }
