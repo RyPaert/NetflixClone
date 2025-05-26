@@ -2,7 +2,7 @@
 using NetflixCloneMAUI.Pages;
 using NetflixCloneMAUI.Services;
 using NetflixCloneMAUI.ViewModels;
-using System.Collections.ObjectModel;
+using CommunityToolkit.Maui;
 
 namespace NetflixCloneMAUI;
 
@@ -10,17 +10,18 @@ public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
+                fonts.AddFont("Poppins-Semibold.ttf", "PoppinsSemibold");
+            });
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
         builder.Services.AddHttpClient(TmdbService.TmdbHttpClientName,
             httpClient => httpClient.BaseAddress = new Uri("https://api.themoviedb.org"));
@@ -32,7 +33,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CategoriesPage>();
 		builder.Services.AddSingleton<CategoriesViewModel>();
 
-		builder.Services.AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage));
+        builder.Services.AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage));
         return builder.Build();
 	}
 }

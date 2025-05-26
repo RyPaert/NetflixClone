@@ -10,6 +10,13 @@ public partial class DetailsPage : ContentPage
 	{
 		InitializeComponent();
 		_viewModel = viewModel;
-		BindingContext = _viewModel
+		BindingContext = _viewModel;
 	}
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.InitializeAsync();
+
+    }
 }

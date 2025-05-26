@@ -1,5 +1,7 @@
 using System.Windows.Input;
 using NetflixCloneMAUI.Models;
+using NetflixCloneMAUI.Pages;
+using NetflixCloneMAUI.ViewModels;
 
 namespace NetflixCloneMAUI.Controls;
 
@@ -32,6 +34,10 @@ public partial class MovieInfoBox : ContentView
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-
+		var parameters = new Dictionary<string, object>
+		{
+			[nameof(DetailsViewModel.Media)] = Media,
+		};
+		await Shell.Current.GoToAsync(nameof(DetailsPage), true, parameters);
     }
 }
