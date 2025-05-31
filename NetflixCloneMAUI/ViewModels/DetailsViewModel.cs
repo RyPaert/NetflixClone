@@ -29,22 +29,31 @@ namespace NetflixCloneMAUI.ViewModels
         public async Task InitializeAsync()
         {
             IsBusy = true;
-
-            var trailerTeasers = await _tmdbService.GetTrailersAsync(Media.Id, Media.MediaType);
             try
             {
+                var trailerTeasersTask = _tmdbService.GetTrailersAsync(Media.Id, Media.MediaType);
+                var detailsTask = _tmdbService.GetMovieDetailsAsync(Media.Id, Media.MediaType);
+
+                var trailerTeasers = await trailerTeasersTask;
+                var details = await detailsTask;
                 if (trailerTeasers?.Any() == true)
                 {
                     var trailer = trailerTeasers.FirstOrDefault(t => t.type == "Trailer");
-                    if (trailer == null)
+                    trailer ??= trailerTeasers.First();
+                    MainTrailerUrl = GenerateYoutubeUrl(trailer.key);
+
+                    foreach (var video in trailerTeasers)
                     {
-                        trailer = trailerTeasers.First();
+                        Videos.Add(video);
                     }
-                    MainTrailerUrl = GenerateYoutueUrl(trailer.key);
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Not Found", "No videos found", "Ok");
+                    await Shell.Current.DisplayAlert("Not found", "No videos found", "Ok");
+                }
+                if (details is not null)
+                {
+                    Runtime = details.runtime;
                 }
             }
             finally
@@ -52,6 +61,7 @@ namespace NetflixCloneMAUI.ViewModels
                 IsBusy = false;
             }
         }
+
         private static string GenerateYoutueUrl(string videoKey) =>
             $"https://www.youtube.com/embed/{videoKey}";
     }

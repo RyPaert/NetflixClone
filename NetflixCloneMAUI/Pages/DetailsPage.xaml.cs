@@ -20,13 +20,21 @@ public partial class DetailsPage : ContentPage
 
     }
 
-    private void SimilarTab_Tapped(object sender, TappedEventArgs e)
-    {
-
-    }
-
     private void TrailersTab_Tapped(object sender, TappedEventArgs e)
     {
+        similarTabIndicaror.Color = Colors.Black;
+        similarTabContent.IsVisible = false;
 
+        trailersTabIndicaror.Color = Colors.Red;
+        trailersTabContent.IsVisible = true;
+    }
+
+    private void SimilarTab_Tapped(object sender, TappedEventArgs e)
+    {
+        trailersTabIndicaror.Color = Colors.Black;
+        trailersTabContent.IsVisible = false;
+
+        similarTabIndicaror.Color = Colors.Red;
+        similarTabContent.IsVisible = true;
     }
 }

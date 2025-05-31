@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NetflixCloneMAUI.Pages.DetailsPage"
              xmlns:vm="clr-namespace:NetflixCloneMAUI.ViewModels"
+             xmlns:services="clr-namespace:NetflixCloneMAUI.Services"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="vm:DetailsViewModel"
              BackgroundColor="Black"
-             Title="DetailsPage">
+             Shell.BackgroundColor="Black"
+             Title="">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -29,17 +31,16 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
-            <Style TargetType="Label" x:Key="tabtitle">
+            <Style TargetType="Label" x:Key="tabeltext">
                 <Setter Property="FontSize" Value="15"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextTransform" Value="Uppercase"/>
-                <Setter Property="Margin" Value="0, 5, 0, 0"/>
+                <Setter Property="Margin" Value="0, 5,0,0"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView BackgroundColor="Black"
-                x:Name="pageScrollView">
+    <ScrollView BackgroundColor="Black">
         <Grid>
             <ActivityIndicator Color="White"
                                VerticalOptions="Center"
@@ -125,7 +126,7 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Margin="5">
-                    <BoxView HeightRequest="2" />
+                    <BoxView HeightRequest="2"/>
 
                     <Grid RowDefinitions="Auto, Auto"
                           ColumnDefinitions="Auto, Auto"
@@ -135,10 +136,9 @@
                                              Grid.Column="0">
                             <BoxView HeightRequest="4"
                                      Color="Red"
-                                     x:Name="trailersTabIndicator"/>
-
+                                     x:Name="trailersTabIndicaror"/>
                             <Label Text="Trailers &amp; More"
-                                   Style="{x:StaticResource tabtitle}">
+                                   Style="{x:StaticResource tabeltext}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="TrailersTab_Tapped"/>
                                 </Label.GestureRecognizers>
@@ -149,10 +149,9 @@
                                              Grid.Column="1">
                             <BoxView HeightRequest="4"
                                      Color="Black"
-                                     x:Name="similarTabIndicator"/>
-
+                                     x:Name="similarTabIndicaror"/>
                             <Label Text="More Like This"
-                                   Style="{x:StaticResource tabtitle}">
+                                   Style="{x:StaticResource tabeltext}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="SimilarTab_Tapped"/>
                                 </Label.GestureRecognizers>
@@ -160,25 +159,59 @@
                         </VerticalStackLayout>
                     </Grid>
 
-                    <VerticalStackLayout>
+                    <Border BackgroundColor="Black"
+                            StrokeThickness="0"
+                            x:Name="trailersTabContent">
+                        <CollectionView ItemsSource="{Binding Videos}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="services:Video">
+                                    <Grid RowDefinitions="250,Auto"
+                                          Padding="10"
+                                          RowSpacing="5">
+                                        <Border Grid.Row="0"
+                                                StrokeShape="RoundRectangle 5"
+                                                StrokeThickness="0"
+                                                Opacity="0.8">
+                                            <Image Aspect="AspectFill">
+                                                <Image.Source>
+                                                    <UriImageSource Uri="{Binding Thumbnail}"/>
+                                                </Image.Source>
+                                            </Image>
+                                        </Border>
 
-                        <Border BackgroundColor="Black"
-                                StrokeThickness="0"
-                                x:Name="trailersTabContent">
-                            <Label Text="Trailers collection view"/>
-                        </Border>
+                                        <Border Grid.Row="0"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center"
+                                                BackgroundColor="#DDD"
+                                                HeightRequest="50"
+                                                WidthRequest="50"
+                                                StrokeShape="RoundRectangle 25">
+                                            <Image Source="play.png"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"
+                                                   Aspect="AspectFit"/>
+                                        </Border>
 
-                        <Border BackgroundColor="Black"
-                                StrokeThickness="0"
-                                x:Name="similarTabIndicator"
-                                IsVisible="False">
-                            
-                            <Label Text="More like this grid"/>
-                        </Border>
+                                        <Label Grid.Row="1"
+                                            Text="{Binding name}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-                    </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="Black"
+                            StrokeThickness="0"
+                            IsVisible="False"
+                            x:Name="similarTabContent">
+                        <Label Text="More like this grid"/>
+                    </Border>
+
                 </VerticalStackLayout>
+
             </VerticalStackLayout>
         </Grid>
-    </ScrollView>       
+    </ScrollView>
+
 </ContentPage>
