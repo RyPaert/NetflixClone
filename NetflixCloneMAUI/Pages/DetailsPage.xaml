@@ -4,6 +4,7 @@
              x:Class="NetflixCloneMAUI.Pages.DetailsPage"
              xmlns:vm="clr-namespace:NetflixCloneMAUI.ViewModels"
              xmlns:services="clr-namespace:NetflixCloneMAUI.Services"
+             xmlns:models="clr-namespace:NetflixCloneMAUI.Models"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="vm:DetailsViewModel"
              BackgroundColor="Black"
@@ -31,7 +32,7 @@
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
-            <Style TargetType="Label" x:Key="tabeltext">
+            <Style TargetType="Label" x:Key="tabtitle">
                 <Setter Property="FontSize" Value="15"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextTransform" Value="Uppercase"/>
@@ -136,9 +137,9 @@
                                              Grid.Column="0">
                             <BoxView HeightRequest="4"
                                      Color="Red"
-                                     x:Name="trailersTabIndicaror"/>
+                                     x:Name="trailersTabIndicator"/>
                             <Label Text="Trailers &amp; More"
-                                   Style="{x:StaticResource tabeltext}">
+                                   Style="{x:StaticResource tabtitle}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="TrailersTab_Tapped"/>
                                 </Label.GestureRecognizers>
@@ -149,9 +150,9 @@
                                              Grid.Column="1">
                             <BoxView HeightRequest="4"
                                      Color="Black"
-                                     x:Name="similarTabIndicaror"/>
+                                     x:Name="similarTabIndicator"/>
                             <Label Text="More Like This"
-                                   Style="{x:StaticResource tabeltext}">
+                                   Style="{x:StaticResource tabtitle}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="SimilarTab_Tapped"/>
                                 </Label.GestureRecognizers>
@@ -160,18 +161,19 @@
                     </Grid>
 
                     <Border BackgroundColor="Black"
-                            StrokeThickness="0"
-                            x:Name="trailersTabContent">
+                        StrokeThickness="0"
+                        x:Name="trailersTabContent">
+
                         <CollectionView ItemsSource="{Binding Videos}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="services:Video">
-                                    <Grid RowDefinitions="250,Auto"
-                                          Padding="10"
-                                          RowSpacing="5">
+                                    <Grid RowDefinitions="250, Auto"
+                                      Padding="10"
+                                      RowSpacing="5">
                                         <Border Grid.Row="0"
-                                                StrokeShape="RoundRectangle 5"
-                                                StrokeThickness="0"
-                                                Opacity="0.8">
+                                            StrokeShape="RoundRectangle 5"
+                                            StrokeThickness="0"
+                                            Opacity="0.8">
                                             <Image Aspect="AspectFill">
                                                 <Image.Source>
                                                     <UriImageSource Uri="{Binding Thumbnail}"/>
@@ -180,20 +182,20 @@
                                         </Border>
 
                                         <Border Grid.Row="0"
-                                                VerticalOptions="Center"
-                                                HorizontalOptions="Center"
-                                                BackgroundColor="#DDD"
-                                                HeightRequest="50"
-                                                WidthRequest="50"
-                                                StrokeShape="RoundRectangle 25">
-                                            <Image Source="play.png"
-                                                   VerticalOptions="Center"
-                                                   HorizontalOptions="Center"
-                                                   Aspect="AspectFit"/>
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            BackgroundColor="#DDD"
+                                            HeightRequest="50"
+                                            WidthRequest="50"
+                                            StrokeShape="RoundRectangle 25">
+                                            <Image Source="play"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               Aspect="AspectFit"/>
                                         </Border>
 
-                                        <Label Grid.Row="1"
-                                            Text="{Binding name}" />
+                                        <Label Grid.Row="1" 
+                                           Text="{Binding name}" />
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
@@ -202,10 +204,32 @@
                     </Border>
 
                     <Border BackgroundColor="Black"
-                            StrokeThickness="0"
-                            IsVisible="False"
-                            x:Name="similarTabContent">
-                        <Label Text="More like this grid"/>
+                        StrokeThickness="0"
+                        IsVisible="False"
+                        x:Name="similarTabContent">
+
+                        <FlexLayout BindableLayout.ItemsSource="{Binding Similar}"
+                                Wrap="Wrap"
+                                JustifyContent="SpaceBetween">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="models:Media">
+                                    <Border StrokeShape="RoundRectangle 4"
+                                        BackgroundColor="Black"
+                                        StrokeThickness="0"
+                                        HeightRequest="135"
+                                        WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=SimilarItemWidth}"
+                                        Margin="0, 0, 0, 5">
+                                        <Image Source="{Binding ThumbnailSmall}"
+                                           Aspect="Fill"/>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:DetailsViewModel}}, Path=ChangeToThisMediaCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+
                     </Border>
 
                 </VerticalStackLayout>
